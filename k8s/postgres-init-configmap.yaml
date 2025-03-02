@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-init-script
+  namespace: n8n
+data:
+  init-db.sh: |
+    #!/bin/bash
+    set -e
+    
+    psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
+      CREATE USER n8n WITH PASSWORD '-)N2SCitJ\$hrP9]QHXCs';
+      GRANT ALL PRIVILEGES ON DATABASE n8n TO n8n;
+      ALTER USER n8n WITH SUPERUSER;
+    EOSQL

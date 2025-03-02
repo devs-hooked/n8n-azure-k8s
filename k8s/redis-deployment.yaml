@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: redis
+  name: redis
+  namespace: n8n
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: redis
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        service: redis
+    spec:
+      containers:
+        - image: redis:6-alpine
+          name: redis
+          ports:
+            - containerPort: 6379
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "300m"
+          volumeMounts:
+            - mountPath: /data
+              name: redis-data
+      volumes:
+        - name: redis-data
+          persistentVolumeClaim:
+            claimName: redis-data-claim
+      restartPolicy: Always

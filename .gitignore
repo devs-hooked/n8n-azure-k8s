@@ -398,3 +398,61 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+#######################################
+# n8n on AKS specific ignores
+#######################################
+
+# Kubernetes secrets (do not commit sensitive data)
+# Comment out if using dummy secrets or examples for reference
+# k8s/secrets.yaml
+
+# Local backup files
+*.backup
+*.bak
+backups/
+
+# Local configuration overrides
+*.local.yaml
+*.local.yml
+*-override.yaml
+
+# Azure CLI local state
+.azure/
+
+# Terraform (if used for infrastructure)
+.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfvars
+
+# Logs
+logs/
+*.log
+
+# Additional VS Code specific items
+.vscode/
+!.vscode/extensions.recommended.json
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Certificate files
+*.pem
+*.crt
+*.key
+*.pfx
+*.p12
+
+# PowerShell script outputs
+scripts/output/
+
+# Temporary files
+temp/
+tmp/
+
+# OS specific files
+.DS_Store
+Thumbs.db
